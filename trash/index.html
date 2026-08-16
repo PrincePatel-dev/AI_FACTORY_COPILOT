@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MFGX AI - Factory Copilot</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background: #0f1117; color: #e6e6e6; margin: 0; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 20px; color: #4fd1c5; }
+  .sub { color: #888; font-size: 13px; margin-bottom: 20px; }
+  #chat { min-height: 360px; border: 1px solid #2a2d3a; border-radius: 10px; padding: 16px; margin-bottom: 12px; background: #161923; }
+  .msg { margin-bottom: 14px; padding: 10px 14px; border-radius: 8px; max-width: 85%; line-height: 1.4; font-size: 14px; white-space: pre-wrap; }
+  .user { background: #263042; margin-left: auto; text-align: right; }
+  .bot { background: #1e2530; border-left: 3px solid #4fd1c5; }
+  .row { display: flex; gap: 8px; }
+  input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #2a2d3a; background: #161923; color: #eee; font-size: 14px; }
+  button { padding: 12px 18px; border-radius: 8px; border: none; background: #4fd1c5; color: #0f1117; font-weight: 600; cursor: pointer; }
+  button:hover { background: #3bb9ad; }
+  .quick { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .quick button { background: #262a38; color: #ccc; font-size: 12px; padding: 6px 10px; font-weight: 400; }
+  #kpiBtn { background: #f0b429; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏭 MFGX AI — Factory Copilot</h1>
+  <div class="sub">Ask questions about downtime, OEE, scrap, and shift performance in plain English.</div>
+
+  <div id="chat"></div>
+
+  <div class="row">
+    <input id="q" placeholder="e.g. Which machine had the highest downtime this week?" />
+    <button onclick="send()">Ask</button>
+  </div>
+
+  <div class="quick">
+    <button onclick="ask('Which machine has the worst downtime this week?')">Worst downtime this week</button>
+    <button onclick="ask('What is causing most scrap on Weld-02?')">Weld-02 scrap issue</button>
+    <button onclick="ask('Compare night shift vs morning shift performance')">Night vs Morning</button>
+    <button id="kpiBtn" onclick="kpiSummary()">📊 Daily KPI Insight</button>
+  </div>
+</div>
+
+<script>
+const chat = document.getElementById("chat");
+
+function addMsg(text, cls) {
+  const div = document.createElement("div");
+  div.className = "msg " + cls;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function send() {
+  const input = document.getElementById("q");
+  const query = input.value.trim();
+  if (!query) return;
+  ask(query);
+  input.value = "";
+}
+
+async function ask(query) {
+  addMsg(query, "user");
+  addMsg("Thinking...", "bot");
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+    const data = await res.json();
+    chat.removeChild(chat.lastChild);
+    addMsg(data.answer || data.error || "No response", "bot");
+  } catch (e) {
+    chat.removeChild(chat.lastChild);
+    addMsg("Error: " + e.message, "bot");
+  }
+}
+
+async function kpiSummary() {
+  addMsg("Generate today's KPI insight", "user");
+  addMsg("Generating...", "bot");
+  try {
+    const res = await fetch("/kpi-summary");
+    const data = await res.json();
+    chat.removeChild(chat.lastChild);
+    addMsg(data.summary || data.error, "bot");
+  } catch (e) {
+    chat.removeChild(chat.lastChild);
+    addMsg("Error: " + e.message, "bot");
+  }
+}
+
+document.getElementById("q").addEventListener("keydown", e => {
+  if (e.key === "Enter") send();
+});
+</script>
+</body>
+</html>
