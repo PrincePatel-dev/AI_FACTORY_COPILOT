@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Sparkles, Clock, Download, MessageSquare, BarChart2, LayoutGrid } from 'lucide-react';
+import { Sparkles, Clock, Download, MessageSquare, BarChart2, LayoutGrid, Activity } from 'lucide-react';
 
 export default function Header({ 
   timeframe, 
@@ -10,82 +10,71 @@ export default function Header({
 }) {
   return (
     <header className="header-container">
-      {/* Top / Left: Brand Logo & Title */}
+      {/* Brand Identification */}
       <div className="header-brand-row">
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #06B6D4 0%, #2563EB 100%)',
+            width: '32px',
+            height: '32px',
+            borderRadius: '8px',
+            background: 'linear-gradient(135deg, #0284C7 0%, #2563EB 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: '#FFFFFF',
             fontWeight: 800,
-            fontSize: '1.05rem',
-            boxShadow: '0 0 12px rgba(6, 182, 212, 0.35)',
+            fontSize: '0.95rem',
+            boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
             flexShrink: 0
           }}>
             M
           </div>
           <div>
-            <h1 style={{ fontSize: '0.98rem', fontWeight: 800, letterSpacing: '-0.01em', color: '#FFFFFF', margin: 0 }}>
-              MFGX <span style={{ color: 'var(--accent-cyan)' }}>AI Factory Copilot</span>
-            </h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '0.94rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#FFFFFF' }}>
+                MFGX
+              </span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--text-muted)' }}>
+                / Factory Intelligence
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.68rem', color: 'var(--text-muted)' }}>
               <span className="pulse-emerald" />
-              <span>1,350 Shift Records Loaded</span>
+              <span>1,350 plant telemetry records</span>
             </div>
           </div>
         </div>
-
-        {/* Daily KPI Insight Button */}
-        <button 
-          className="sc-btn sc-btn-glow header-insight-btn"
-          onClick={onOpenInsightModal}
-          title="Generate auto-written daily operational report"
-        >
-          <Sparkles size={14} />
-          <span>Daily KPI Insight</span>
-        </button>
       </div>
 
-      {/* Middle / Center: View Mode Switcher Tabs */}
+      {/* Center Segmented View Switcher */}
       <div className="header-tabs-wrapper">
         <div className="sc-tabs-list">
           <button
             className={`sc-tab-btn ${viewMode === 'copilot' ? 'sc-tab-btn-active' : ''}`}
             onClick={() => setViewMode('copilot')}
           >
-            <MessageSquare size={14} />
+            <MessageSquare size={13} />
             <span>AI Copilot</span>
           </button>
           <button
             className={`sc-tab-btn ${viewMode === 'analytics' ? 'sc-tab-btn-active' : ''}`}
             onClick={() => setViewMode('analytics')}
           >
-            <BarChart2 size={14} />
+            <BarChart2 size={13} />
             <span>Telemetry</span>
           </button>
           <button
             className={`sc-tab-btn ${viewMode === 'split' ? 'sc-tab-btn-active' : ''}`}
             onClick={() => setViewMode('split')}
           >
-            <LayoutGrid size={14} />
+            <LayoutGrid size={13} />
             <span>Split View</span>
           </button>
         </div>
       </div>
 
-      {/* Bottom / Right: Action Controls */}
+      {/* Right Controls & Actions */}
       <div className="header-actions">
-        {/* Model Badge */}
-        <span className="sc-badge sc-badge-cyan" style={{ padding: '5px 9px' }}>
-          <Cpu size={12} color="var(--accent-cyan)" />
-          <span>Gemini 3.1</span>
-        </span>
-
         {/* Timeframe Selector */}
         <div style={{
           display: 'flex',
@@ -93,7 +82,7 @@ export default function Header({
           gap: '6px',
           background: 'var(--bg-panel)',
           border: '1px solid var(--border-subtle)',
-          borderRadius: '8px',
+          borderRadius: '7px',
           padding: '4px 8px'
         }}>
           <Clock size={12} color="var(--text-muted)" />
@@ -105,30 +94,40 @@ export default function Header({
               border: 'none',
               color: 'var(--text-primary)',
               fontSize: '0.74rem',
-              fontWeight: 600,
+              fontWeight: 500,
               outline: 'none',
               cursor: 'pointer'
             }}
           >
-            <option value="this week" style={{ background: '#0F172A' }}>This Week</option>
-            <option value="today" style={{ background: '#0F172A' }}>Today</option>
-            <option value="last week" style={{ background: '#0F172A' }}>Last Week</option>
-            <option value="last 30 days" style={{ background: '#0F172A' }}>Last 30 Days</option>
-            <option value="all" style={{ background: '#0F172A' }}>All Time</option>
+            <option value="this week" style={{ background: '#0E1526' }}>This Week</option>
+            <option value="today" style={{ background: '#0E1526' }}>Today</option>
+            <option value="last week" style={{ background: '#0E1526' }}>Last Week</option>
+            <option value="last 30 days" style={{ background: '#0E1526' }}>Last 30 Days</option>
+            <option value="all" style={{ background: '#0E1526' }}>All Time</option>
           </select>
         </div>
 
-        {/* Export CSV Button */}
+        {/* Export Telemetry */}
         <a 
           href={`/api/export-csv?timeframe=${encodeURIComponent(timeframe)}`}
           download
           className="sc-btn sc-btn-secondary"
-          style={{ textDecoration: 'none', padding: '4px 10px', fontSize: '0.74rem' }}
-          title="Export telemetry to CSV file"
+          style={{ textDecoration: 'none' }}
+          title="Export telemetry to CSV"
         >
-          <Download size={12} color="var(--accent-cyan)" />
+          <Download size={13} color="var(--text-secondary)" />
           <span>Export</span>
         </a>
+
+        {/* Executive Daily Report Button */}
+        <button 
+          className="sc-btn sc-btn-primary"
+          onClick={onOpenInsightModal}
+          title="Generate executive operational summary"
+        >
+          <Sparkles size={13} />
+          <span>Insight Report</span>
+        </button>
       </div>
     </header>
   );

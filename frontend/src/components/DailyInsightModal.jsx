@@ -24,8 +24,8 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px',
-        background: 'rgba(0, 0, 0, 0.75)',
-        backdropFilter: 'blur(8px)'
+        background: 'rgba(4, 6, 12, 0.8)',
+        backdropFilter: 'blur(6px)'
       }}
       onClick={onClose}
     >
@@ -34,18 +34,18 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
         onClick={(e) => e.stopPropagation()} 
         style={{
           width: '100%',
-          maxWidth: '750px',
+          maxWidth: '720px',
           maxHeight: '85vh',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
           boxShadow: '0 20px 50px rgba(0,0,0,0.8)',
-          border: '1px solid var(--border-cyan)'
+          border: '1px solid var(--border-light)'
         }}
       >
         {/* Modal Header */}
         <div className="modal-header" style={{
-          padding: '16px 20px',
+          padding: '14px 20px',
           borderBottom: '1px solid var(--border-subtle)',
           background: 'var(--bg-panel)',
           display: 'flex',
@@ -55,20 +55,24 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
-              padding: '8px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #06B6D4 0%, #2563EB 100%)',
-              color: '#FFFFFF',
-              boxShadow: '0 0 12px rgba(6, 182, 212, 0.3)',
+              width: '32px',
+              height: '32px',
+              borderRadius: '8px',
+              background: 'rgba(56, 189, 248, 0.1)',
+              border: '1px solid var(--border-subtle)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--accent-cyan)',
               flexShrink: 0
             }}>
-              <Sparkles size={18} />
+              <Sparkles size={16} />
             </div>
             <div>
-              <h2 style={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+              <h2 style={{ fontSize: '0.96rem', fontWeight: 600, color: '#FFFFFF', margin: 0 }}>
                 Executive Daily KPI Insight Report
               </h2>
-              <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                 Auto-generated operational summary covering OEE, Downtime, & Bottlenecks
               </p>
             </div>
@@ -78,7 +82,7 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
             onClick={onClose}
             style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
@@ -91,13 +95,13 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
                 <span className="pulse-emerald" style={{ animationDelay: '0.3s' }} />
                 <span className="pulse-emerald" style={{ animationDelay: '0.6s' }} />
               </div>
-              <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                 Synthesizing 1,350 shift records and diagnosing root causes with Gemini 3.1 Flash Lite...
               </p>
             </div>
           ) : (
             <div 
-              style={{ fontSize: '0.84rem', lineHeight: 1.6 }}
+              style={{ fontSize: '0.82rem', lineHeight: 1.6 }}
               dangerouslySetInnerHTML={{ __html: formatReportMarkdown(reportData?.report) }} 
             />
           )}
@@ -105,7 +109,7 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
 
         {/* Modal Footer */}
         <div className="modal-footer" style={{
-          padding: '14px 20px',
+          padding: '12px 20px',
           borderTop: '1px solid var(--border-subtle)',
           background: 'var(--bg-panel)',
           display: 'flex',
@@ -119,11 +123,11 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
           </span>
 
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button className="sc-btn sc-btn-secondary" onClick={handleCopy} style={{ padding: '6px 12px', fontSize: '0.76rem' }}>
+            <button className="sc-btn sc-btn-secondary" onClick={handleCopy} style={{ padding: '5px 12px', fontSize: '0.75rem' }}>
               {copied ? <Check size={13} color="var(--accent-emerald)" /> : <Copy size={13} />}
               <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
-            <button className="sc-btn sc-btn-glow" onClick={onClose} style={{ padding: '6px 14px', fontSize: '0.76rem' }}>
+            <button className="sc-btn sc-btn-primary" onClick={onClose} style={{ padding: '5px 14px', fontSize: '0.75rem' }}>
               Close
             </button>
           </div>
@@ -137,15 +141,15 @@ function formatReportMarkdown(text) {
   if (!text) return '';
   let formatted = text
     .replace(/\n\n/g, '<br/><br/>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#FFF; font-weight:700;">$1</strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#FFF; font-weight:600;">$1</strong>')
     .replace(/\*(.*?)\*/g, '<em style="color:var(--text-secondary);">$1</em>')
-    .replace(/^# (.*$)/gim, '<h2 style="font-size:1.1rem; color:#FFF; margin-top:12px; margin-bottom:6px; border-bottom:1px solid var(--border-subtle); padding-bottom:4px;">$1</h2>')
-    .replace(/^## (.*$)/gim, '<h3 style="font-size:0.98rem; color:var(--accent-cyan); margin-top:10px; margin-bottom:4px;">$1</h3>')
-    .replace(/^### (.*$)/gim, '<h4 style="font-size:0.88rem; color:var(--accent-amber); margin-top:8px; margin-bottom:4px;">$1</h4>')
-    .replace(/^- (.*$)/gim, '<li style="margin-left: 1.2rem; list-style-type: disc; color: var(--text-secondary);">$1</li>')
-    .replace(/^([0-9]+\.) (.*$)/gim, '<li style="margin-left: 1.2rem; list-style-type: decimal; color: var(--text-secondary);">$2</li>')
-    .replace(/⚠️ SINGLE BIGGEST CONCERN OF THE DAY/g, '<div style="margin:12px 0; border:1px solid var(--border-red); background:rgba(239, 68, 68, 0.08); padding:12px; border-radius:10px;"><strong style="color:var(--accent-red); font-weight:700; display:block; margin-bottom:4px;">⚠️ SINGLE BIGGEST CONCERN OF THE DAY</strong>')
-    .replace(/💡 Key Actionable Takeaways:/g, '</div><div style="margin:12px 0; border:1px solid var(--border-emerald); background:rgba(16, 185, 129, 0.08); padding:12px; border-radius:10px;"><strong style="color:var(--accent-emerald); font-weight:700; display:block; margin-bottom:4px;">💡 Key Actionable Takeaways:</strong>')
+    .replace(/^# (.*$)/gim, '<h2 style="font-size:1.05rem; color:#FFF; margin-top:10px; margin-bottom:6px; border-bottom:1px solid var(--border-subtle); padding-bottom:4px;">$1</h2>')
+    .replace(/^## (.*$)/gim, '<h3 style="font-size:0.92rem; color:var(--accent-cyan); margin-top:8px; margin-bottom:4px;">$1</h3>')
+    .replace(/^### (.*$)/gim, '<h4 style="font-size:0.84rem; color:var(--accent-amber); margin-top:6px; margin-bottom:2px;">$1</h4>')
+    .replace(/^- (.*$)/gim, '<li style="margin-left: 1.1rem; list-style-type: disc; color: var(--text-secondary);">$1</li>')
+    .replace(/^([0-9]+\.) (.*$)/gim, '<li style="margin-left: 1.1rem; list-style-type: decimal; color: var(--text-secondary);">$2</li>')
+    .replace(/⚠️ SINGLE BIGGEST CONCERN OF THE DAY/g, '<div style="margin:10px 0; border:1px solid var(--border-red); background:rgba(239, 68, 68, 0.05); padding:10px; border-radius:8px;"><strong style="color:var(--accent-red); font-weight:600; display:block; margin-bottom:2px;">⚠️ SINGLE BIGGEST CONCERN OF THE DAY</strong>')
+    .replace(/💡 Key Actionable Takeaways:/g, '</div><div style="margin:10px 0; border:1px solid var(--border-emerald); background:rgba(16, 185, 129, 0.05); padding:10px; border-radius:8px;"><strong style="color:var(--accent-emerald); font-weight:600; display:block; margin-bottom:2px;">💡 Key Actionable Takeaways:</strong>')
     + '</div>';
 
   return formatted;
