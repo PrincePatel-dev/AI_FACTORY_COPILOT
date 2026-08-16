@@ -10,51 +10,49 @@ export default function Header({
 }) {
   return (
     <header className="header-container">
-      {/* Left: Brand & Mode Navigation Tabs */}
-      <div className="header-left">
-        {/* Brand Logo & Title Row */}
-        <div className="header-brand-row">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #06B6D4 0%, #2563EB 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#FFFFFF',
-              fontWeight: 800,
-              fontSize: '1.05rem',
-              boxShadow: '0 0 12px rgba(6, 182, 212, 0.35)',
-              flexShrink: 0
-            }}>
-              M
-            </div>
-            <div>
-              <h1 style={{ fontSize: '0.98rem', fontWeight: 800, letterSpacing: '-0.01em', color: '#FFFFFF', margin: 0 }}>
-                MFGX <span style={{ color: 'var(--accent-cyan)' }}>AI Factory Copilot</span>
-              </h1>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                <span className="pulse-emerald" />
-                <span>1,350 Shift Records Loaded</span>
-              </div>
+      {/* Top / Left: Brand Logo & Title */}
+      <div className="header-brand-row">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #06B6D4 0%, #2563EB 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#FFFFFF',
+            fontWeight: 800,
+            fontSize: '1.05rem',
+            boxShadow: '0 0 12px rgba(6, 182, 212, 0.35)',
+            flexShrink: 0
+          }}>
+            M
+          </div>
+          <div>
+            <h1 style={{ fontSize: '0.98rem', fontWeight: 800, letterSpacing: '-0.01em', color: '#FFFFFF', margin: 0 }}>
+              MFGX <span style={{ color: 'var(--accent-cyan)' }}>AI Factory Copilot</span>
+            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+              <span className="pulse-emerald" />
+              <span>1,350 Shift Records Loaded</span>
             </div>
           </div>
-
-          {/* Daily KPI Insight (Compact on mobile header row) */}
-          <button 
-            className="sc-btn sc-btn-glow sm:hidden"
-            onClick={onOpenInsightModal}
-            title="Generate auto-written daily operational report"
-            style={{ padding: '6px 12px', fontSize: '0.74rem' }}
-          >
-            <Sparkles size={13} />
-            <span>KPI Insight</span>
-          </button>
         </div>
 
-        {/* View Mode Switcher Tabs */}
+        {/* Daily KPI Insight Button */}
+        <button 
+          className="sc-btn sc-btn-glow header-insight-btn"
+          onClick={onOpenInsightModal}
+          title="Generate auto-written daily operational report"
+        >
+          <Sparkles size={14} />
+          <span>Daily KPI Insight</span>
+        </button>
+      </div>
+
+      {/* Middle / Center: View Mode Switcher Tabs */}
+      <div className="header-tabs-wrapper">
         <div className="sc-tabs-list">
           <button
             className={`sc-tab-btn ${viewMode === 'copilot' ? 'sc-tab-btn-active' : ''}`}
@@ -80,11 +78,11 @@ export default function Header({
         </div>
       </div>
 
-      {/* Right Action Controls */}
+      {/* Bottom / Right: Action Controls */}
       <div className="header-actions">
         {/* Model Badge */}
-        <span className="sc-badge sc-badge-cyan" style={{ padding: '5px 10px' }}>
-          <Cpu size={13} color="var(--accent-cyan)" />
+        <span className="sc-badge sc-badge-cyan" style={{ padding: '5px 9px' }}>
+          <Cpu size={12} color="var(--accent-cyan)" />
           <span>Gemini 3.1</span>
         </span>
 
@@ -96,9 +94,9 @@ export default function Header({
           background: 'var(--bg-panel)',
           border: '1px solid var(--border-subtle)',
           borderRadius: '8px',
-          padding: '5px 10px'
+          padding: '4px 8px'
         }}>
-          <Clock size={13} color="var(--text-muted)" />
+          <Clock size={12} color="var(--text-muted)" />
           <select 
             value={timeframe} 
             onChange={(e) => setTimeframe(e.target.value)}
@@ -106,7 +104,7 @@ export default function Header({
               background: 'transparent',
               border: 'none',
               color: 'var(--text-primary)',
-              fontSize: '0.75rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
               outline: 'none',
               cursor: 'pointer'
@@ -125,23 +123,12 @@ export default function Header({
           href={`/api/export-csv?timeframe=${encodeURIComponent(timeframe)}`}
           download
           className="sc-btn sc-btn-secondary"
-          style={{ textDecoration: 'none', padding: '5px 12px', fontSize: '0.75rem' }}
+          style={{ textDecoration: 'none', padding: '4px 10px', fontSize: '0.74rem' }}
           title="Export telemetry to CSV file"
         >
-          <Download size={13} color="var(--accent-cyan)" />
+          <Download size={12} color="var(--accent-cyan)" />
           <span>Export</span>
         </a>
-
-        {/* Daily KPI Insight Glow Button (Desktop) */}
-        <button 
-          className="sc-btn sc-btn-glow"
-          onClick={onOpenInsightModal}
-          title="Generate auto-written daily operational report"
-          style={{ padding: '5px 14px', fontSize: '0.75rem' }}
-        >
-          <Sparkles size={13} />
-          <span>Daily KPI Insight</span>
-        </button>
       </div>
     </header>
   );

@@ -114,7 +114,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ height: '100vh', maxHeight: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', backgroundColor: 'var(--bg-dark)' }} className="text-slate-100 font-sans">
+    <div className="app-container text-slate-100 font-sans">
       {/* Header Bar with Mode Switcher */}
       <Header 
         timeframe={timeframe} 
