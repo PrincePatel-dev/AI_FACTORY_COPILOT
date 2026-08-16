@@ -39,45 +39,47 @@ export default function CopilotChat({ messages, onSendMessage, loading, onClearC
   };
 
   return (
-    <div className="sc-card" style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
+    <div className="sc-card copilot-container" style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
       
       {/* Copilot Header */}
       <div style={{
-        padding: '10px 16px',
+        padding: '10px 14px',
         borderBottom: '1px solid var(--border-subtle)',
         background: 'var(--bg-panel)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '8px',
         flexShrink: 0
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
-            padding: '6px',
+            padding: '5px',
             borderRadius: '8px',
             background: 'rgba(6, 182, 212, 0.12)',
             border: '1px solid var(--border-cyan)'
           }}>
-            <Bot size={18} color="var(--accent-cyan)" />
+            <Bot size={17} color="var(--accent-cyan)" />
           </div>
           <div>
-            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <span>AI Factory Copilot</span>
-              <span className="sc-badge sc-badge-emerald" style={{ padding: '1px 6px', fontSize: '0.66rem' }}>
+              <span className="sc-badge sc-badge-emerald" style={{ padding: '1px 5px', fontSize: '0.62rem' }}>
                 Ready
               </span>
             </div>
-            <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
-              Natural language Q&A over plant downtime, OEE, & scrap telemetry
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+              Natural language Q&A over downtime, OEE & scrap
             </div>
           </div>
         </div>
 
         {/* Action Info */}
-        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Info size={13} color="var(--text-muted)" />
-            <span>Answers cite verified numbers</span>
+        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Info size={12} color="var(--text-muted)" />
+            <span style={{ fontSize: '0.68rem' }}>Verified numbers</span>
           </div>
           {messages.length > 0 && (
             <button
@@ -86,10 +88,10 @@ export default function CopilotChat({ messages, onSendMessage, loading, onClearC
                 background: 'transparent',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '6px',
-                padding: '4px 8px',
+                padding: '3px 7px',
                 color: 'var(--text-secondary)',
                 cursor: 'pointer',
-                fontSize: '0.72rem',
+                fontSize: '0.68rem',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px'
@@ -103,12 +105,13 @@ export default function CopilotChat({ messages, onSendMessage, loading, onClearC
 
       {/* Quick Prompts Bar */}
       <div style={{
-        padding: '8px 16px',
+        padding: '6px 12px',
         background: 'rgba(13, 21, 39, 0.5)',
         borderBottom: '1px solid var(--border-subtle)',
         display: 'flex',
-        gap: '8px',
+        gap: '6px',
         overflowX: 'auto',
+        WebkitOverflowScrolling: 'touch',
         flexShrink: 0
       }}>
         {quickPrompts.map((chip, idx) => (
@@ -181,11 +184,11 @@ export default function CopilotChat({ messages, onSendMessage, loading, onClearC
 
             {/* Bubble Content */}
             <div style={{
-              maxWidth: '82%',
+              maxWidth: '88%',
               background: msg.role === 'user' ? 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%)' : 'var(--bg-panel)',
               border: `1px solid ${msg.role === 'user' ? 'rgba(59, 130, 246, 0.4)' : 'var(--border-subtle)'}`,
               borderRadius: msg.role === 'user' ? '14px 14px 2px 14px' : '14px 14px 14px 2px',
-              padding: '12px 16px',
+              padding: '10px 14px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
               position: 'relative'
             }}>

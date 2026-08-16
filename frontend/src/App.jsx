@@ -131,11 +131,11 @@ export default function App() {
       />
 
       {/* Dynamic View Workspace */}
-      <main style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '0 20px 14px 20px', width: '100%' }}>
+      <main className="main-workspace">
         
         {/* Mode 1: AI Copilot Focused View */}
         {viewMode === 'copilot' && (
-          <div style={{ width: '100%', maxWidth: '980px', margin: '0 auto', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+          <div style={{ width: '100%', maxWidth: '980px', margin: '0 auto', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
             <CopilotChat 
               messages={messages} 
               onSendMessage={handleSendMessage} 
@@ -147,7 +147,7 @@ export default function App() {
 
         {/* Mode 2: Telemetry & Analytics Dashboard View */}
         {viewMode === 'analytics' && (
-          <div style={{ width: '100%', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', overflowY: 'auto', paddingRight: '4px' }}>
+          <div style={{ width: '100%', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', overflowY: 'auto', paddingRight: '2px' }}>
             <AnalyticsView 
               trendData={dashboardData?.trend_series || []}
               shiftData={dashboardData?.shift_comparison || []}
@@ -157,42 +157,40 @@ export default function App() {
             {/* Quick Floating Chat Trigger */}
             <button
               onClick={() => setViewMode('copilot')}
-              className="sc-btn"
+              className="sc-btn sc-btn-glow"
               style={{
                 position: 'fixed',
-                bottom: '24px',
-                right: '28px',
+                bottom: '20px',
+                right: '20px',
                 zIndex: 50,
-                borderRadius: '8px',
+                borderRadius: '50px',
                 padding: '8px 16px',
-                fontSize: '0.85rem',
+                fontSize: '0.82rem',
                 fontWeight: 600,
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                backgroundColor: 'var(--accent-cyan)',
-                color: '#fff',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                boxShadow: '0 8px 24px rgba(6, 182, 212, 0.4)'
               }}
             >
-              <MessageSquare size={16} />
-              <span>Ask AI Copilot</span>
+              <MessageSquare size={15} />
+              <span>Ask AI</span>
             </button>
           </div>
         )}
 
-        {/* Mode 3: Split View (Side-by-side) */}
+        {/* Mode 3: Split View (Side-by-side on desktop, stacked on mobile) */}
         {viewMode === 'split' && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '14px', width: '100%', height: '100%', minHeight: 0, overflow: 'hidden' }}>
-            <div style={{ height: '100%', minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+          <div className="split-view-grid">
+            <div className="split-view-col">
               <TrendCharts 
                 trendData={dashboardData?.trend_series || []}
                 shiftData={dashboardData?.shift_comparison || []}
                 machineSummaries={dashboardData?.machine_summaries || []}
               />
             </div>
-            <div style={{ height: '100%', minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+            <div className="split-view-col">
               <CopilotChat 
                 messages={messages} 
                 onSendMessage={handleSendMessage} 

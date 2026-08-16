@@ -55,11 +55,11 @@ export default function AnalyticsView({ trendData, shiftData, machineSummaries }
     <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', paddingBottom: '20px', minHeight: '100%' }}>
       
       {/* Charts Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '16px', flexShrink: 0 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '14px', flexShrink: 0 }}>
         
         {/* Chart 1: Shift Comparison */}
         <div className="sc-card" style={{ padding: '16px', height: '280px', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', flexWrap: 'wrap', gap: '4px' }}>
             <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BarChart2 size={16} color="var(--accent-cyan)" />
               Shift Performance (OEE % vs Downtime Mins)
@@ -84,7 +84,7 @@ export default function AnalyticsView({ trendData, shiftData, machineSummaries }
 
         {/* Chart 2: OEE Timeline */}
         <div className="sc-card" style={{ padding: '16px', height: '280px', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', flexWrap: 'wrap', gap: '4px' }}>
             <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BarChart2 size={16} color="var(--accent-emerald)" />
               Plant Daily OEE Timeline Trend
@@ -109,16 +109,16 @@ export default function AnalyticsView({ trendData, shiftData, machineSummaries }
 
       {/* Machine Cells Telemetry Matrix Table */}
       <div className="sc-card" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <TableIcon size={20} color="var(--accent-cyan)" />
-            <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#FFFFFF' }}>
+            <h3 style={{ fontSize: '0.96rem', fontWeight: 700, color: '#FFFFFF' }}>
               Manufacturing Cells Telemetry Matrix (All 10 Machines)
             </h3>
           </div>
 
           {/* Search Box */}
-          <div style={{ position: 'relative', width: '280px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '280px' }}>
             <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '10px' }} />
             <input
               type="text"
@@ -132,8 +132,8 @@ export default function AnalyticsView({ trendData, shiftData, machineSummaries }
         </div>
 
         {/* Table Body */}
-        <div style={{ overflowX: 'auto', flex: 1 }}>
-          <table className="sc-table">
+        <div className="responsive-table-container" style={{ flex: 1 }}>
+          <table className="sc-table" style={{ minWidth: '640px' }}>
             <thead>
               <tr>
                 <th style={{ cursor: 'pointer' }} onClick={() => handleSort('machine_id')}>

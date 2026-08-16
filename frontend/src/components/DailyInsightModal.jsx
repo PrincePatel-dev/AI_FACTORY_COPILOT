@@ -30,7 +30,7 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
       onClick={onClose}
     >
       <div 
-        className="sc-card"
+        className="sc-card modal-card"
         onClick={(e) => e.stopPropagation()} 
         style={{
           width: '100%',
@@ -44,44 +44,46 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
         }}
       >
         {/* Modal Header */}
-        <div style={{
-          padding: '18px 24px',
+        <div className="modal-header" style={{
+          padding: '16px 20px',
           borderBottom: '1px solid var(--border-subtle)',
           background: 'var(--bg-panel)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          gap: '12px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
-              padding: '10px',
+              padding: '8px',
               borderRadius: '10px',
               background: 'linear-gradient(135deg, #06B6D4 0%, #2563EB 100%)',
               color: '#FFFFFF',
-              boxShadow: '0 0 12px rgba(6, 182, 212, 0.3)'
+              boxShadow: '0 0 12px rgba(6, 182, 212, 0.3)',
+              flexShrink: 0
             }}>
-              <Sparkles size={20} />
+              <Sparkles size={18} />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+              <h2 style={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
                 Executive Daily KPI Insight Report
               </h2>
-              <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                Auto-generated AI operational summary covering OEE, Downtime, Scrap, & Bottleneck Machine
+              <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                Auto-generated operational summary covering OEE, Downtime, & Bottlenecks
               </p>
             </div>
           </div>
 
           <button 
             onClick={onClose}
-            style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Modal Content */}
-        <div style={{ flex: 1, padding: '24px', overflowY: 'auto' }}>
+        <div className="modal-body" style={{ flex: 1, padding: '20px', overflowY: 'auto' }}>
           {loading ? (
             <div style={{ padding: '40px 0', textAlign: 'center' }}>
               <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', marginBottom: '16px' }}>
@@ -90,7 +92,7 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
                 <span className="pulse-emerald" style={{ animationDelay: '0.6s' }} />
               </div>
               <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-                Synthesizing 1,350 shift records and diagnosing root causes with Gemini 3.5 Flash Lite...
+                Synthesizing 1,350 shift records and diagnosing root causes with Gemini 3.1 Flash Lite...
               </p>
             </div>
           ) : (
@@ -102,24 +104,26 @@ export default function DailyInsightModal({ isOpen, onClose, reportData, loading
         </div>
 
         {/* Modal Footer */}
-        <div style={{
-          padding: '16px 24px',
+        <div className="modal-footer" style={{
+          padding: '14px 20px',
           borderTop: '1px solid var(--border-subtle)',
           background: 'var(--bg-panel)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '10px'
         }}>
-          <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <FileText size={14} color="var(--accent-cyan)" /> Generated from 1,350 plant telemetry records
+          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <FileText size={13} color="var(--accent-cyan)" /> 1,350 plant telemetry records
           </span>
 
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button className="sc-btn sc-btn-secondary" onClick={handleCopy}>
-              {copied ? <Check size={14} color="var(--accent-emerald)" /> : <Copy size={14} />}
-              <span>{copied ? 'Copied to Clipboard' : 'Copy Report'}</span>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button className="sc-btn sc-btn-secondary" onClick={handleCopy} style={{ padding: '6px 12px', fontSize: '0.76rem' }}>
+              {copied ? <Check size={13} color="var(--accent-emerald)" /> : <Copy size={13} />}
+              <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
-            <button className="sc-btn sc-btn-glow" onClick={onClose}>
+            <button className="sc-btn sc-btn-glow" onClick={onClose} style={{ padding: '6px 14px', fontSize: '0.76rem' }}>
               Close
             </button>
           </div>

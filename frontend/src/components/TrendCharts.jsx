@@ -174,7 +174,7 @@ export default function TrendCharts({ trendData, shiftData, machineSummaries = [
         </div>
 
         {/* Scrollable Table Area */}
-        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '4px 10px' }}>
+        <div className="responsive-table-container" style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '4px 10px' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.74rem', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--border-subtle)', color: 'var(--text-muted)', fontSize: '0.68rem', fontWeight: 600 }}>
