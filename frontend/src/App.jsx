@@ -7,7 +7,7 @@ import AnalyticsView from './components/AnalyticsView';
 import DailyInsightModal from './components/DailyInsightModal';
 import { MessageSquare } from 'lucide-react';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export default function App() {
   const [timeframe, setTimeframe] = useState('this week');
